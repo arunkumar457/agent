@@ -1,0 +1,23 @@
+- name: Transfer and execute a script.
+  hosts: dev_backend
+  user: ubuntu
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: Copy script and config files
+    copy:
+        src: "{{ item }}"
+        dest: /tmp/
+        owner: root
+        group: root
+        mode: 0744
+    with_items:
+       - config.json
+       - install_consul_agent.sh
+       - consul.service
+       - node_exporter.service
+       - node_exporter.json
+
+  - name: install ruby gems by running the script
+    command: sh /tmp/install_consul_agent.sh

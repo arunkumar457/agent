@@ -1,0 +1,12 @@
+{
+  "service": {
+    "name":  "node_exporter",
+    "port": 9100,
+    "tags": ["prometheus"],
+    "check": {
+        "name": "node_exporter_check",
+        "http": "http://localhost:9100/metrics",
+        "interval": "10s"
+    }
+  }
+}
